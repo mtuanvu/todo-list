@@ -1,25 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import './App.css';
+import { User } from './models/User.model';
 
-function App() {
+const App: React.FC = () => {
+
+  const [count, setCount] = useState(0);
+  const [data, setData] = useState<User[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await axios.get<User[]>('https://664f5401fafad45dfae35964.mockapi.io/v1/users/users');
+      console.log(data?.data);
+      setData(data?.data || []);
+    }
+
+    fetchData()
+      .catch(console.error);
+  }, [])
+
+  const handleClick = () => {
+    setCount(count + 1);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button onClick={handleClick}>
+        You pressed me {count} times
+      </button>
+      <div>
+        {data.map((value, index) =>
+          <div key={value?.id}>
+            {value?.age}
+            {value?.firstName}
+            {value?.lastName}
+          </div>
+        )}
+      </div>
+    </>
+
   );
 }
 
