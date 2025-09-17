@@ -1,43 +1,32 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import './App.css';
-import { User } from './models/User.model';
+import { useTheme } from './theme/ThemeProvider';
+import './i18n/i18n'; // import config i18n
+import { useTranslation } from 'react-i18next';
 
 const App: React.FC = () => {
+  const { theme, toggleTheme } = useTheme();
+  const { t, i18n } = useTranslation();
 
-  const [count, setCount] = useState(0);
-  const [data, setData] = useState<User[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await axios.get<User[]>('https://664f5401fafad45dfae35964.mockapi.io/v1/users/users');
-      console.log(data?.data);
-      setData(data?.data || []);
-    }
-
-    fetchData()
-      .catch(console.error);
-  }, [])
-
-  const handleClick = () => {
-    setCount(count + 1);
-  }
+  const toggleLanguage = () => {
+    const newLang = i18n.language === "en" ? "vi" : "en";
+    i18n.changeLanguage(newLang);
+  };
 
   return (
-    <>
-      <button onClick={handleClick}>
-        You pressed me {count} times
-      </button>
-      <div>
-        {data.map((value, index) =>
-          <div key={value?.id}>
-            {value?.age}
-            {value?.firstName}
-            {value?.lastName}
-          </div>
-        )}
-      </div>
-    </>
+    <div>
+      <h1>{t("welcome")}</h1>
+      <p>{t("currentTheme")}: {theme}</p>
 
+      <button onClick={toggleTheme}>
+        {t("switchTheme", { theme: theme === "light" ? "Dark" : "Light" })}
+      </button>
+
+      <br /><br />
+
+      <button onClick={toggleLanguage}>
+        {t("button.click")}
+      </button>
+    </div>
   );
 }
 

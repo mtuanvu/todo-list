@@ -1,0 +1,8 @@
+@use "./variables" as *;
+
+[data-theme="dark"] {
+  --bg-color: #{map-get($theme-dark, bg-color)};
+  --text-color: #{map-get($theme-dark, text-color)};
+  --primary-color: #{map-get($theme-dark, primary-color)};
+  --shadow-sm: #{map-get($theme-dark, shadow-sm-dark)};
+}

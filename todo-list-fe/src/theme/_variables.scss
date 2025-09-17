@@ -1,0 +1,19 @@
+$theme-light: (
+  bg-color: #ffffff,
+  text-color: #000000,
+  primary-color: #007bff,
+  shadow-sm-light: 0px 1.71px 1.71px rgba(0, 0, 0, 0.25)
+);
+
+$theme-dark: (
+  bg-color: #121212,
+  text-color: #ffffff,
+  primary-color: #66b2ff,
+  shadow-sm-dark: 0px 1.71px 1.71px rgba(255, 255, 255, 0.1),
+);
+
+$border-box: (
+  bd-box-sm: 3px,
+  bd-box-md: 8px,
+  bd-box-lg: 10px
+);
